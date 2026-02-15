@@ -10,12 +10,14 @@
         #hud {
             position: absolute; top: 20px; width: 100%; display: flex;
             justify-content: space-between; padding: 0 50px; box-sizing: border-box;
-            pointer-events: none;
+            pointer-events: none; z-index: 10;
         }
         .hp-bar-container { width: 300px; height: 30px; background: #333; border: 3px solid #fff; }
         .hp-bar-fill { height: 100%; width: 100%; transition: width 0.2s; }
         #hp-local { background: #3498db; }
         #hp-remote { background: #e74c3c; }
+
+        #status-box { color: white; text-align: center; background: rgba(0,0,0,0.5); padding: 5px 15px; border-radius: 5px; }
 
         #card-overlay { 
             display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); 
@@ -29,11 +31,35 @@
         }
         .card:hover { transform: translateY(-10px) scale(1.05); box-shadow: 0 0 20px #f1c40f; }
         
-        #instruction { position: absolute; bottom: 20px; width: 100%; text-align: center; color: #555; }
+        #debug-console {
+            position: absolute; bottom: 10px; left: 10px; color: #00ff00; 
+            font-size: 12px; pointer-events: none; max-height: 100px; overflow: hidden;
+        }
     </style>
 </head>
 <body>
 
+    <div id="hud">
+        <div class="hp-bar-container"><div id="hp-local" class="hp-bar-fill"></div></div>
+        <div id="status-box">
+            <div id="status">INITIATING...</div>
+            <div id="room-id" style="font-size: 10px; color: #aaa;"></div>
+        </div>
+        <div class="hp-bar-container"><div id="hp-remote" class="hp-bar-fill"></div></div>
+    </div>
+
+    <div id="debug-console"></div>
+
+    <div id="card-overlay">
+        <h1 style="color:white; letter-spacing: 10px;">PICK A CARD</h1>
+        <div id="card-container"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/exitgames/photon-javascript-sdk@master/dist/Photon-Javascript_SDK.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
     <div id="hud">
         <div class="hp-bar-container"><div id="hp-local" class="hp-bar-fill"></div></div>
         <div id="status" style="color: white; font-weight: bold;">CONNECTING...</div>
