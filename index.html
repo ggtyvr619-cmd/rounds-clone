@@ -1,19 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>JS Rounds Clone</title>
+    <meta charset="UTF-8">
+    <title>ROUNDS JS - Full Clone</title>
     <style>
-        body { margin: 0; overflow: hidden; background: #1a1a1a; }
+        body { margin: 0; overflow: hidden; background: #0f0f0f; font-family: 'Courier New', Courier, monospace; }
         canvas { display: block; }
-        #ui { position: absolute; color: white; font-family: sans-serif; padding: 20px; }
+        
+        #hud {
+            position: absolute; top: 20px; width: 100%; display: flex;
+            justify-content: space-between; padding: 0 50px; box-sizing: border-box;
+            pointer-events: none;
+        }
+        .hp-bar-container { width: 300px; height: 30px; background: #333; border: 3px solid #fff; }
+        .hp-bar-fill { height: 100%; width: 100%; transition: width 0.2s; }
+        #hp-local { background: #3498db; }
+        #hp-remote { background: #e74c3c; }
+
+        #card-overlay { 
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); 
+            z-index: 100; flex-direction: column; align-items: center; justify-content: center; 
+        }
+        #card-container { display: flex; gap: 20px; margin-top: 20px; }
+        .card {
+            width: 200px; height: 280px; background: #1a1a1a; border: 5px solid #f1c40f;
+            border-radius: 15px; cursor: pointer; color: white; padding: 20px;
+            text-align: center; transition: all 0.2s;
+        }
+        .card:hover { transform: translateY(-10px) scale(1.05); box-shadow: 0 0 20px #f1c40f; }
+        
+        #instruction { position: absolute; bottom: 20px; width: 100%; text-align: center; color: #555; }
     </style>
 </head>
 <body>
-    <div id="ui">Status: <span id="status">Connecting...</span></div>
-    
+
+    <div id="hud">
+        <div class="hp-bar-container"><div id="hp-local" class="hp-bar-fill"></div></div>
+        <div id="status" style="color: white; font-weight: bold;">CONNECTING...</div>
+        <div class="hp-bar-container"><div id="hp-remote" class="hp-bar-fill"></div></div>
+    </div>
+
+    <div id="card-overlay">
+        <h1 style="color:white; letter-spacing: 10px;">PICK A CARD</h1>
+        <div id="card-container"></div>
+    </div>
+
+    <div id="instruction">WASD: Move | SPACE: Jump | CLICK: Shoot | RIGHT-CLICK: Block</div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/exitgames/photon-javascript-sdk@master/dist/Photon-Javascript_SDK.min.js"></script>
     <script src="game.js"></script>
 </body>
 </html>
-
